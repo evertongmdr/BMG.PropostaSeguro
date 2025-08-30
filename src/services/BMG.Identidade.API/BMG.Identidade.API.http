@@ -1,0 +1,6 @@
+@BMG.Identidade.API_HostAddress = http://localhost:5066
+
+GET {{BMG.Identidade.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
