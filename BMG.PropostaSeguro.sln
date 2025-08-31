@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMG.MessageBus", "src\build
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMG.Propostas.API", "src\services\BMG.Propostas.API\BMG.Propostas.API.csproj", "{36052DC4-7133-EA02-A677-EAA828B0A978}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMG.Contratacao.Application", "src\services\BMG.Contratacao.Application\BMG.Contratacao.Application.csproj", "{39462AD0-2D52-4925-83AC-54BB7E032804}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{36052DC4-7133-EA02-A677-EAA828B0A978}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36052DC4-7133-EA02-A677-EAA828B0A978}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36052DC4-7133-EA02-A677-EAA828B0A978}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39462AD0-2D52-4925-83AC-54BB7E032804}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39462AD0-2D52-4925-83AC-54BB7E032804}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39462AD0-2D52-4925-83AC-54BB7E032804}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39462AD0-2D52-4925-83AC-54BB7E032804}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -117,6 +123,7 @@ Global
 		{12AFE93A-4AF2-787E-E142-19BFAD7044FB} = {2BCBD95A-1B59-48AD-A4A2-A7618983D4D0}
 		{E9D9808D-0758-793F-9F26-46BC6D7B8F43} = {8499F741-A61E-48F1-A81F-87B719CFDDEE}
 		{36052DC4-7133-EA02-A677-EAA828B0A978} = {670E2532-8585-4FD3-A811-3BF3BFF89891}
+		{39462AD0-2D52-4925-83AC-54BB7E032804} = {C2A36933-1865-439F-8386-4AE0DF88CD11}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EE00CD6F-6C53-4B22-B223-76881467EB61}

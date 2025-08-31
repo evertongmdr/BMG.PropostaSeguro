@@ -1,7 +1,12 @@
-﻿namespace BMG.Core.Utils
-{
-    public class ConfigurationExtensions
-    {
+﻿using Microsoft.Extensions.Configuration;
 
+namespace BMG.Core.Utils
+{
+    public static class ConfigurationExtensions
+    {
+        public static string GetMessageQueueConnection(this IConfiguration configuration, string name)
+        {
+            return configuration?.GetSection("MessageQueueConnection")?[name];
+        }
     }
 }

@@ -12,8 +12,5 @@
             get => _tamanhoPagina;
             set => _tamanhoPagina = value > TamanhoMaximoPagina ? TamanhoMaximoPagina : value;
         }
-
-        public string OrderBy { get; set; } = "Name";
-        public string Selecionar { get; set; }
     }
 }

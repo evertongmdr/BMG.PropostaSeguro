@@ -1,4 +1,5 @@
 ﻿using BMG.Propostas.API.Configuration;
+using BMG.Propostas.Application.AutoMapper;
 using BMG.WebAPI.Core.Extensions;
 
 namespace BMG.Propostas.API
@@ -14,9 +15,12 @@ namespace BMG.Propostas.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddApiConfiguration(Configuration);
 
             services.AddSwaggerConfiguration();
+
+            services.AddAutoMapper(typeof(AutoMapperConfig));
 
             services.RegisterServices();
 

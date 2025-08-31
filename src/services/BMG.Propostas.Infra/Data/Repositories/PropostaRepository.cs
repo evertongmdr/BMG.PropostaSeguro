@@ -18,16 +18,22 @@ namespace BMG.Propostas.Infra.Data
             _context = context;
         }
 
-        public async Task<Proposta> ObterPorId(Guid id)
+        public async Task<Proposta> ObterPorIdAsync(Guid id)
         {
             return await _context.Propostas.FindAsync(id);
         }
 
-        public async Task<PagedResult<Proposta>> ObterPropostas(PropostaQueryParametersDTO propostaQueryParameters)
+        public async Task<Proposta> ObterPorNumeroAsync(int numeroProposta)
+        {
+            return await _context.Propostas
+                              .FirstOrDefaultAsync(p => p.NumeroProposta == numeroProposta);
+        }
+
+        public async Task<PagedResult<Proposta>> ObterPropostasAsync(PropostaQueryParametersDTO propostaQueryParameters)
         {
             var query = _context.Propostas.AsNoTracking().AsQueryable();
 
-            if (!string.IsNullOrEmpty(propostaQueryParameters.NumeroProposta))
+            if (propostaQueryParameters.NumeroProposta .HasValue)
                 query = query.Where(p => p.NumeroProposta == propostaQueryParameters.NumeroProposta);
 
             if (!string.IsNullOrEmpty(propostaQueryParameters.Titulo))
@@ -55,7 +61,6 @@ namespace BMG.Propostas.Infra.Data
         {
             _context.Propostas.Update(proposta);
         }
-
         public void Dispose()
         {
             _context?.Dispose();

@@ -9,8 +9,8 @@ namespace BMG.Propostas.Application.Validators
         public AtualizarStatusPropostaDtoValidator()
         {
             RuleFor(x => x.Status)
-                .Must(status => status == PropostaStatus.Aprovada || status == PropostaStatus.Rejeitada)
-                    .WithMessage("O status da proposta deve ser 'Aprovada' ou 'Rejeitada'.");
+                .IsInEnum()
+                .WithMessage("Status da proposta inválido.");
         }
     }
 }

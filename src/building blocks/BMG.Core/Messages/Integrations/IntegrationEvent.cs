@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BMG.Core.Messages.Integrations
+﻿namespace BMG.Core.Messages.Integrations
 {
-    internal class IntegrationEvent
+    public abstract class IntegrationEvent
     {
+        public string IntegrationEventType { get; protected set; }
+        public DateTime Timestamp { get; private set; }
+
+        protected IntegrationEvent()
+        {
+            IntegrationEventType = GetType().Name;
+            Timestamp = DateTime.Now;
+        }
     }
 }

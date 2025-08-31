@@ -7,8 +7,9 @@ namespace BMG.Propostas.Domain.Interfaces.Repositories
 {
     public interface IPropostaRepository : IRepository<Proposta>
     {
-        Task<Proposta> ObterPorId(Guid id);
-        Task<PagedResult<Proposta>> ObterPropostas(PropostaQueryParametersDTO propostaQueryParameters);
+        Task<Proposta> ObterPorIdAsync(Guid id);
+        Task<Proposta> ObterPorNumeroAsync(int numeroProposta);
+        Task<PagedResult<Proposta>> ObterPropostasAsync(PropostaQueryParametersDTO propostaQueryParameters);
         void Adicionar(Proposta proposta);
         void Atualizar(Proposta proposta);
     }

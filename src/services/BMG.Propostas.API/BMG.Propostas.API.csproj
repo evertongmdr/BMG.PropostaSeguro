@@ -18,8 +18,4 @@
     <ProjectReference Include="..\BMG.Propostas.Infra\BMG.Propostas.Infra.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Application\Validators\" />
-  </ItemGroup>
-
 </Project>

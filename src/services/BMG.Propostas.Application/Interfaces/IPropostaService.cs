@@ -6,10 +6,9 @@ namespace BMG.Propostas.Application.Interfaces
 {
     public interface IPropostaService
     {
-        // TODO: REMOVER
-        public Task<Proposta> ObterProposta(Guid id);
-        public Task<PagedResult<Proposta>> ObterPropostas(PropostaQueryParametersDTO propostaQueryParameters);
-        public Task<Guid> CriarProposta(CriarPropostaRequestDTO criarPropostaDTO);
-        public Task AtualizarStatusProposta(Guid propostaid, AtualizarStatusPropostaDTO atualizarStatusPropostaDTO);
+        public Task<Proposta> ObterPropostaAsync(Guid id);
+        public Task<PagedResult<Proposta>> ObterPropostasAsync(PropostaQueryParametersDTO propostaQueryParameters);
+        public Task<Guid> CriarPropostaAsync(CriarPropostaRequestDTO criarPropostaDTO);
+        public Task AtualizarStatusPropostaAsync(Guid propostaid, AtualizarStatusPropostaDTO atualizarStatusPropostaDTO);
     }
 }

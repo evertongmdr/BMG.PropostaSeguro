@@ -13,25 +13,35 @@ namespace BMG.Propostas.Application.Services
         private readonly IPropostaRepository _propostaRepository;
         private readonly IMapper _mapper;
 
-        public PropostaService(NotificationContext notificationContext, IPropostaRepository propostaRepository) : base(notificationContext)
+        public PropostaService(NotificationContext notificationContext, IMapper mapper, IPropostaRepository propostaRepository) : base(notificationContext)
         {
+            _mapper = mapper;
             _propostaRepository = propostaRepository;
         }
-        public async Task<Proposta> ObterProposta(Guid id)
+        public async Task<Proposta> ObterPropostaAsync(Guid id)
         {
-            return await _propostaRepository.ObterPorId(id);
+            return await _propostaRepository.ObterPorIdAsync(id);
         }
 
-        public async Task<PagedResult<Proposta>> ObterPropostas(PropostaQueryParametersDTO propostaQueryParameters)
+        public async Task<PagedResult<Proposta>> ObterPropostasAsync(PropostaQueryParametersDTO propostaQueryParameters)
         {
-            return await _propostaRepository.ObterPropostas(propostaQueryParameters);
+            return await _propostaRepository.ObterPropostasAsync(propostaQueryParameters);
         }
 
-        public async Task<Guid> CriarProposta(CriarPropostaRequestDTO criarPropostaDTO)
+        public async Task<Guid> CriarPropostaAsync(CriarPropostaRequestDTO criarPropostaDTO)
         {
+            var propostaExistente = await _propostaRepository.ObterPorNumeroAsync(criarPropostaDTO.NumeroProposta);
+
+            if (propostaExistente != null)
+            {
+                _notificationContext.AddNotification($"Já existe uma proposta com o número {criarPropostaDTO.NumeroProposta}.");
+                return Guid.Empty;
+            }
+
             var proposta = _mapper.Map<Proposta>(criarPropostaDTO);
 
             proposta.Status = PropostaStatus.EmAnalise;
+            proposta.DataCriacao = DateTime.Now;
 
             _propostaRepository.Adicionar(proposta);
 
@@ -40,10 +50,17 @@ namespace BMG.Propostas.Application.Services
             return proposta.Id;
         }
 
-        public async Task AtualizarStatusProposta(Guid propostaId, AtualizarStatusPropostaDTO atualizarStatusPropostaDTO)
+        public async Task AtualizarStatusPropostaAsync(Guid propostaId, AtualizarStatusPropostaDTO atualizarStatusPropostaDTO)
         {
+            var status = atualizarStatusPropostaDTO.Status;
 
-            var proposta = await _propostaRepository.ObterPorId(propostaId);
+            if (status != PropostaStatus.Aprovada && status != PropostaStatus.Rejeitada)
+            {
+                _notificationContext.AddNotification("Status inválido. Somente os status 'Aprovada' ou 'Rejeitada' são permitidos.");
+                return;
+            }
+
+            var proposta = await _propostaRepository.ObterPorIdAsync(propostaId);
 
             if (proposta == null)
             {
@@ -57,7 +74,7 @@ namespace BMG.Propostas.Application.Services
                 return;
             }
 
-            proposta.Status = atualizarStatusPropostaDTO.Status;
+            proposta.Status = status;
 
             _propostaRepository.Atualizar(proposta);
 

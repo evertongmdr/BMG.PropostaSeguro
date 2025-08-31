@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -8,11 +8,19 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Data\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\BMG.Core\BMG.Core.csproj" />
+    <ProjectReference Include="..\..\building blocks\BMG.MessageBus\BMG.MessageBus.csproj" />
     <ProjectReference Include="..\..\building blocks\BMG.WebAPI.Core\BMG.WebAPI.Core.csproj" />
+    <ProjectReference Include="..\BMG.Contratacao.Application\BMG.Contratacao.Application.csproj" />
+    <ProjectReference Include="..\BMG.Contratacao.Domain\BMG.Contratacao.Domain.csproj" />
+    <ProjectReference Include="..\BMG.Contratacao.Infra\BMG.Contratacao.Infra.csproj" />
   </ItemGroup>
 
 </Project>

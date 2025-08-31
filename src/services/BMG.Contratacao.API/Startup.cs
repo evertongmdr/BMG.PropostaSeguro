@@ -1,4 +1,5 @@
-﻿using BMG.WebAPI.Core.Extensions;
+﻿using BMG.Contratacao.API.Configuration;
+using BMG.WebAPI.Core.Extensions;
 
 namespace BMG.Contratacao.API
 {
@@ -13,19 +14,21 @@ namespace BMG.Contratacao.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddApiConfiguration(Configuration);
+            services.AddApiConfiguration(Configuration);
 
-            //services.AddSwaggerConfiguration();
+            services.AddSwaggerConfiguration();
 
-            //services.RegisterServices();
+            services.RegisterServices();
+
+            services.AddMessageBusConfiguration(Configuration);
 
         }
 
         public void Configure(WebApplication app, IWebHostEnvironment env)
         {
-            //app.UseSwaggerConfiguration();
+            app.UseSwaggerConfiguration();
 
-            //app.UseApiConfiguration(env);
+            app.UseApiConfiguration(env);
         }
     }
 }
