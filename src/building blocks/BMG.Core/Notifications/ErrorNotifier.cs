@@ -2,11 +2,11 @@
 
 namespace BMG.Core.Notifications
 {
-    public abstract class NotifiableService
+    public abstract class ErrorNotifier
     {
         protected readonly NotificationContext _notificationContext;
 
-        public NotifiableService(NotificationContext notificationContext)
+        public ErrorNotifier(NotificationContext notificationContext)
         {
             _notificationContext = notificationContext;
         }

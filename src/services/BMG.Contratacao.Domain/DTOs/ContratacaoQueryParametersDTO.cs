@@ -2,7 +2,7 @@
 
 namespace BMG.Contratacao.Domain.DTOs
 {
-    public class ContracaoQueryParametersDTO : QueryParameters
+    public class ContratacaoQueryParametersDTO : QueryParameters
     {
 
     }

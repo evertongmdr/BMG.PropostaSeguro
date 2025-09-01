@@ -24,7 +24,7 @@ namespace BMG.Propostas.API.Controllers
         [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseResult), StatusCodes.Status400BadRequest)]
 
-        public async Task<IActionResult> CriarProposta([FromBody] CriarPropostaRequestDTO proposta)
+        public async Task<IActionResult> CriarProposta([FromBody] CriarPropostaDTO proposta)
         {
             var validator = new CriarPropostaDtoValidator();
             var validatorResult = await validator.ValidateAsync(proposta);
@@ -37,11 +37,23 @@ namespace BMG.Propostas.API.Controllers
             return CustomResponse(propostaId);
         }
 
+        [HttpGet("proposta/{id}")]
+        [ProducesResponseType(typeof(Proposta), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseResult), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ResponseResult), StatusCodes.Status404NotFound)]
+
+        public async Task<IActionResult> ObterProposta(Guid id)
+        {
+            var usuario = await _propostaService.ObterPropostaPorIdAsync(id);
+
+            return usuario == null ? NotFound() : CustomResponse(usuario);
+        }
+
         [HttpGet("proposta/lista")]
         [ProducesResponseType(typeof(PagedResult<Proposta>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseResult), StatusCodes.Status400BadRequest)]
 
-        public async Task<IActionResult> ObterPropostas([FromQuery]PropostaQueryParametersDTO propostaQueryParameters)
+        public async Task<IActionResult> ObterPropostas([FromQuery] PropostaQueryParametersDTO propostaQueryParameters)
         {
             return CustomResponse(await _propostaService.ObterPropostasAsync(propostaQueryParameters));
         }

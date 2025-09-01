@@ -9,7 +9,7 @@ namespace BMG.Contratacao.Domain.Interfaces.Repositories
     {
         Task<ContratacaoSeguro> ObterPorIdAsync(Guid id);
 
-        Task<PagedResult<ContratacaoSeguro>> ObterContratacoesAsync(ContracaoQueryParametersDTO contratacaoQueryParameters);
+        Task<PagedResult<ContratacaoSeguro>> ObterContratacoesAsync(ContratacaoQueryParametersDTO contratacaoQueryParameters);
         void Adicionar(ContratacaoSeguro contratacao);
     }
 }

@@ -22,7 +22,7 @@ namespace BMG.Contratacao.Infra.Data.Repositories
             return await _context.Contratacoes.FindAsync(id);
         }
 
-        public async Task<PagedResult<ContratacaoSeguro>> ObterContratacoesAsync(ContracaoQueryParametersDTO contratacaoQueryParameters)
+        public async Task<PagedResult<ContratacaoSeguro>> ObterContratacoesAsync(ContratacaoQueryParametersDTO contratacaoQueryParameters)
         {
             var query = _context.Contratacoes.AsNoTracking().AsQueryable();
 

@@ -1,6 +1,8 @@
 ﻿using BMG.Contratacao.Application.Interfaces;
-using BMG.Contratacao.Domain;
 using BMG.Contratacao.Domain.DTOs;
+using BMG.Contratacao.Domain.Entities;
+using BMG.Contratacao.Domain.Interfaces.Repositories;
+using BMG.Core.DTOs;
 using BMG.Core.Messages.Integrations;
 using BMG.Core.Notifications;
 using BMG.MessageBus;
@@ -8,19 +10,27 @@ using Microsoft.Extensions.Logging;
 
 namespace BMG.Contratacao.Application.Services
 {
-    public class ContratacaoService : NotifiableService, IContratacaoService
+    public class ContratacaoService : ErrorNotifier, IContratacaoService
     {
         private readonly ILogger<ContratacaoService> _logger;
         private readonly IMessageBus _bus;
-        public ContratacaoService(NotificationContext notificationContext, ILogger<ContratacaoService> logger, IMessageBus bus) : base(notificationContext)
+        private readonly IContratacaoRepository _contratacaoRepository;
+        public ContratacaoService(NotificationContext notificationContext, ILogger<ContratacaoService> logger, IMessageBus bus, IContratacaoRepository contratacaoRepository) : base(notificationContext)
         {
             _logger = logger;
             _bus = bus;
+
+            _contratacaoRepository = contratacaoRepository;
         }
 
-        public async Task ContratarPropostaAsync(CriarContratacaoRequestDTO contratacao)
+        public async Task<PagedResult<ContratacaoSeguro>> ObterContratacoesAsync(ContratacaoQueryParametersDTO contracaoQueryParameters)
         {
-            
+            return await _contratacaoRepository.ObterContratacoesAsync(contracaoQueryParameters);
+        }
+
+        public async Task ContratarPropostaAsync(CriarContratacaoDTO contratacao)
+        {
+
             _logger.LogInformation("Etapa 1 - Validando a contratação.");
 
             if (contratacao.PropostaId == Guid.Empty)
@@ -37,7 +47,7 @@ namespace BMG.Contratacao.Application.Services
 
             _logger.LogInformation("Validação concluída com sucesso.");
 
-            
+
             var realizarContratacaoIntegrationEvent = new RealizarContratacaoIntegrationEvent
             {
                 PropostaId = contratacao.PropostaId,

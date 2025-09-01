@@ -8,7 +8,7 @@ using BMG.Propostas.Domain.Interfaces.Repositories;
 
 namespace BMG.Propostas.Application.Services
 {
-    public class PropostaService : NotifiableService, IPropostaService
+    public class PropostaService : ErrorNotifier, IPropostaService
     {
         private readonly IPropostaRepository _propostaRepository;
         private readonly IMapper _mapper;
@@ -18,7 +18,7 @@ namespace BMG.Propostas.Application.Services
             _mapper = mapper;
             _propostaRepository = propostaRepository;
         }
-        public async Task<Proposta> ObterPropostaAsync(Guid id)
+        public async Task<Proposta> ObterPropostaPorIdAsync(Guid id)
         {
             return await _propostaRepository.ObterPorIdAsync(id);
         }
@@ -28,7 +28,7 @@ namespace BMG.Propostas.Application.Services
             return await _propostaRepository.ObterPropostasAsync(propostaQueryParameters);
         }
 
-        public async Task<Guid> CriarPropostaAsync(CriarPropostaRequestDTO criarPropostaDTO)
+        public async Task<Guid> CriarPropostaAsync(CriarPropostaDTO criarPropostaDTO)
         {
             var propostaExistente = await _propostaRepository.ObterPorNumeroAsync(criarPropostaDTO.NumeroProposta);
 

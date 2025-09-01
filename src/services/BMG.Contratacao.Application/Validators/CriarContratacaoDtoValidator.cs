@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace BMG.Contratacao.Application.Validators
 {
-    public class CriarContratacaoDtoValidator : AbstractValidator<CriarContratacaoRequestDTO>
+    public class CriarContratacaoDtoValidator : AbstractValidator<CriarContratacaoDTO>
     {
         public CriarContratacaoDtoValidator()
         {

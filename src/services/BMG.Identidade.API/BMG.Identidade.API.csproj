@@ -1,9 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.4" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\BMG.WebAPI.Core\BMG.WebAPI.Core.csproj" />
+    <ProjectReference Include="..\BMG.Identidade.Application\BMG.Identidade.Application.csproj" />
+    <ProjectReference Include="..\BMG.Identidade.Infra\BMG.Identidade.Infra.csproj" />
+  </ItemGroup>
 
 </Project>

@@ -22,8 +22,4 @@
         public List<string> Mensagens { get; set; }
     }
 
-    public class ResponseResultWithData<T>
-    {
-        public T Data { get; set; }
-    }
 }

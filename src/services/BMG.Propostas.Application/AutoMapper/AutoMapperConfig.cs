@@ -8,7 +8,7 @@ namespace BMG.Propostas.Application.AutoMapper
     {
         public AutoMapperConfig()
         {
-            CreateMap<CriarPropostaRequestDTO, Proposta>();
+            CreateMap<CriarPropostaDTO, Proposta>();
 
         }
     }

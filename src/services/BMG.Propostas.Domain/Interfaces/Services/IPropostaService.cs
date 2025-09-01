@@ -9,8 +9,8 @@ namespace BMG.Propostas.Domain.Interfaces.Services
         // TODO: REMOVER
         public Task<Proposta> ObterProposta(Guid id);
         public Task<PagedResult<Proposta>> ObterPropostas(PropostaQueryParametersDTO propostaQueryParameters);
-        public Guid CriarProposta(CriarPropostaRequestDTO propostaDTO);
-        public bool AtualizarStatusProposta(CriarPropostaRequestDTO propostaDTO);
+        public Guid CriarProposta(CriarPropostaDTO propostaDTO);
+        public bool AtualizarStatusProposta(CriarPropostaDTO propostaDTO);
 
     }
 }

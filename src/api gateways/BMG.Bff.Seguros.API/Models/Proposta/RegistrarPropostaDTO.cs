@@ -1,9 +1,8 @@
-﻿using BMG.Propostas.Domain.Entities;
-
-namespace BMG.Propostas.Domain.DTOs
+﻿namespace BMG.Bff.Seguros.Models.Proposta
 {
-    public class CriarPropostaRequestDTO
+    public class RegistrarPropostaDTO
     {
+
         public int NumeroProposta { get; set; }
         public string Titulo { get; set; }
         public string Descricao { get; set; }

@@ -10,15 +10,22 @@
   },
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "profiles": {
-    "IIS - Dev": {
+    "IIS - Development": {
       "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "SelfHosting - Development": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "sqlDebugging": true,
-      "nativeDebugging": true
+      "applicationUrl": "https://localhost:5301;http://localhost:5302"
     }
   }
 
