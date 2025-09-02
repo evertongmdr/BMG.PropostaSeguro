@@ -45,6 +45,13 @@ O Diagrma foi feito no https://excalidraw.com/ e encontra-se na pasta "documento
 ![Descrição da imagem](https://github.com/evertongmdr/BMG.PropostaSeguro/blob/master/documentos/prints/nome-diagrama.png)
 
 
+## Imagem do Diagrama
 
+![Descrição da imagem](https://github.com/evertongmdr/BMG.PropostaSeguro/blob/master/documentos/prints/diagrama-arquitetura-simples.png)
+
+### Contato e Suporte
+
+Fico à disposição para esclarecer qualquer dúvida ou avaliar detalhes do projeto.  
+Será um prazer conversar sobre qualquer ponto, arquitetura ou execução do sistema.
 
 
