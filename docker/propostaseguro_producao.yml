@@ -1,0 +1,119 @@
+version: "3"
+
+services:
+
+    rabbitmq:
+        image: rabbitmq:3-management
+        container_name: rabbit-propostaseguro
+        environment:
+            RABBITMQ_DEFAULT_USER: "propostaseguro"
+            RABBITMQ_DEFAULT_PASS: "propostaseguro"
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+
+    db-proposta:
+        image: bmg/propostaseguro-db-proposta:latest
+        container_name: propostaseguro-db-proposta
+        build: 
+            context: ../sql/proposta
+            dockerfile: ./Dockerfile
+        environment:
+            SA_PASSWORD: "MeuDB@123"
+            ACCEPT_EULA: "Y"
+        ports:
+            - "1434:1433"
+
+    db-contratacao:
+        image: bmg/propostaseguro-db-contratacao:latest
+        container_name: propostaseguro-db-contratacao
+        build: 
+            context: ../sql/contratacao
+            dockerfile: ./Dockerfile
+        environment:
+            SA_PASSWORD: "MeuDB@123"
+            ACCEPT_EULA: "Y"
+        ports:
+            - "1435:1433"
+
+    db-identidade:
+        image: bmg/propostaseguro-db-identidade:latest
+        container_name: propostaseguro-db-identidade
+        build: 
+            context: ../sql/identidade
+            dockerfile: ./Dockerfile
+        environment:
+            SA_PASSWORD: "MeuDB@123"
+            ACCEPT_EULA: "Y"
+        ports:
+            - "1436:1433"
+
+    api-proposta:
+        image: bmg/propostaseguro-api-proposta:latest
+        container_name: propostaseguro-api-proposta
+        build: 
+            context: ../src
+            dockerfile: ./services/BMG.Propostas.API/Dockerfile
+        ports:
+            - "5201:5201"
+            - "5202:5202"
+        restart: always 
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Production
+            - ASPNETCORE_URLS=http://*:5201
+        depends_on:
+            - db-proposta
+
+    api-contratacao:
+        image: bmg/propostaseguro-api-contratacao:latest
+        container_name: propostaseguro-api-contratacao
+        build: 
+            context: ../src
+            dockerfile: ./services/BMG.Contratacao.API/Dockerfile
+        ports:
+            - "5301:5301"
+            - "5302:5302"
+        restart: always 
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Production
+            - ASPNETCORE_URLS=http://*:5301
+        depends_on:
+            - rabbitmq
+            - db-contratacao
+
+    api-identidade:
+        image: bmg/propostaseguro-api-identidade:latest
+        container_name: propostaseguro-api-identidade
+        build: 
+            context: ../src
+            dockerfile: ./services/BMG.Identidade.API/Dockerfile
+        ports:
+            - "5401:5401"
+            - "5402:5402"
+        restart: always 
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Production
+            - ASPNETCORE_URLS=http://*:5401
+        depends_on:
+            - db-identidade
+
+    api-bff-seguros:
+        image: bmg/propostaseguro-api-bff-seguros:latest
+        container_name: propostaseguro-api-bff-seguros
+        build: 
+            context: ../src
+            dockerfile: ./api gateways/BMG.Bff.Seguros/Dockerfile
+        ports:
+            - "5501:5501"
+            - "5502:5502"
+        restart: always 
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Production
+            - ASPNETCORE_URLS=http://*:5501
+        depends_on:
+            - api-proposta
+            - api-contratacao
+            - api-identidade
+
+
+    
