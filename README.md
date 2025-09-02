@@ -49,6 +49,30 @@ O Diagrma foi feito no https://excalidraw.com/ e encontra-se na pasta "documento
 
 ![Descrição da imagem](https://github.com/evertongmdr/BMG.PropostaSeguro/blob/master/documentos/prints/diagrama-arquitetura-simples.png)
 
+### Overview do Diagrama
+
+ 1) **BFF API Gateway**: Ponto de entrada das requisições. Ele direciona as chamadas para os microsserviços apropriados.
+
+2) **Microsserviços**:
+   - **Proposta API**, **Contratacao API** e **Identidade API**. Cada um possui seu próprio banco de dados (BD).
+   - A **Contratacao API** possui um **Background Service** para processar tarefas assíncronas.
+
+3) **RabbitMQ**:
+   - Funciona como um sistema de mensagens assíncronas.
+   - A **Contratacao API** envia mensagens via **Producer** para uma **Queue**.
+   - Um **Consumer** (rodando em um background service) consome essas mensagens e processa a lógica de salvar a contratação.
+      - Background Service esta rodando dentro **Contratacao API** 
+
+### Fluxo de dados
+- As requisições entram pelo Gateway, que chama os microsserviços.
+- A **Contratacao API** faz uma operação assíncrona.
+- Para operações assíncronas, mensagens são enviadas para RabbitMQ, consumidas por outro serviço e processadas depois.
+
+### Containerização
+- Todo o diagrama está dentro de um contêiner **Docker**, cada serviço roda em um container isolado.
+  - Serviços
+    - Bancos/RabbitMQ/APIs/BFF API Gateway
+
 ### Contato e Suporte
 
 Fico à disposição para esclarecer qualquer dúvida ou avaliar detalhes do projeto.  
