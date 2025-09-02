@@ -10,6 +10,8 @@
         public bool TemAnterior => PaginaAtual > 1;
         public bool TemProxima => PaginaAtual < TotalPaginas;
 
+        public PagedResult() { }
+
         public PagedResult(List<T> items, int quantidadeTotal, int paginaAtual, int tamanhoPagina)
         {
 

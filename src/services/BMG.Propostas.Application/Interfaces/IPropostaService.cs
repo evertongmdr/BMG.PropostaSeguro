@@ -9,6 +9,6 @@ namespace BMG.Propostas.Application.Interfaces
         public Task<Proposta> ObterPropostaPorIdAsync(Guid id);
         public Task<PagedResult<Proposta>> ObterPropostasAsync(PropostaQueryParametersDTO propostaQueryParameters);
         public Task<Guid> CriarPropostaAsync(CriarPropostaDTO criarPropostaDTO);
-        public Task AtualizarStatusPropostaAsync(Guid propostaid, AtualizarStatusPropostaDTO atualizarStatusPropostaDTO);
+        public Task AtualizarStatusPropostaAsync(Guid propostaId, AtualizarStatusPropostaDTO atualizarStatusPropostaDTO);
     }
 }

@@ -7,6 +7,7 @@ using BMG.Propostas.Domain.DTOs;
 using BMG.Propostas.Domain.Entities;
 using BMG.WebAPI.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace BMG.Propostas.API.Controllers
 {
@@ -44,9 +45,12 @@ namespace BMG.Propostas.API.Controllers
 
         public async Task<IActionResult> ObterProposta(Guid id)
         {
-            var usuario = await _propostaService.ObterPropostaPorIdAsync(id);
+            var proposta = await _propostaService.ObterPropostaPorIdAsync(id);
 
-            return usuario == null ? NotFound() : CustomResponse(usuario);
+            if (proposta == null)
+                return CustomErrorResponse("Proposta não encontrado.", HttpStatusCode.NotFound);
+
+            return CustomResponse(proposta);
         }
 
         [HttpGet("proposta/lista")]
@@ -61,7 +65,7 @@ namespace BMG.Propostas.API.Controllers
         [HttpPut("proposta/atualizar-status/{propostaId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseResult), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AtualizarStatus(Guid propostaId, [FromBody] AtualizarStatusPropostaDTO proposta)
+        public async Task<IActionResult> AtualizarStatus(Guid propostaId, [FromBody] AtualizarStatusPropostaDTO atualizarStatusDTO)
         {
 
             if (propostaId == Guid.Empty)
@@ -71,12 +75,12 @@ namespace BMG.Propostas.API.Controllers
             }
 
             var validator = new AtualizarStatusPropostaDtoValidator();
-            var validatorResult = await validator.ValidateAsync(proposta);
+            var validatorResult = await validator.ValidateAsync(atualizarStatusDTO);
 
             if (!validatorResult.IsValid)
                 return CustomResponse(validatorResult);
 
-            await _propostaService.AtualizarStatusPropostaAsync(propostaId, proposta);
+            await _propostaService.AtualizarStatusPropostaAsync(propostaId, atualizarStatusDTO);
 
             return CustomResponse();
 

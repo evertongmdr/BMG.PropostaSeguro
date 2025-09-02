@@ -7,10 +7,11 @@ using BMG.Identidade.Domain.DTOs;
 using BMG.Identidade.Domain.Entities;
 using BMG.WebAPI.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace BMG.Identidade.API.Controllers
 {
-    [Route("api/identidade")]
+    [Route("identidade")]
     public class AutenticacaoController : MainController
     {
         private readonly IIdentidadeService _IdentidadeService;
@@ -39,13 +40,17 @@ namespace BMG.Identidade.API.Controllers
         [HttpGet("usuario/{id}")]
         [ProducesResponseType(typeof(Usuario), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseResult), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ResponseResult), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
 
         public async Task<IActionResult> ObterUsuario(Guid id)
         {
             var usuario = await _IdentidadeService.ObterPorIdAsync(id);
 
-            return usuario == null ? NotFound() : CustomResponse(usuario);
+            if (usuario == null)
+                return CustomErrorResponse("Usuário não encontrado.", HttpStatusCode.NotFound);
+            
+
+            return CustomResponse(usuario);
         }
 
         [HttpGet("usuario/lista")]

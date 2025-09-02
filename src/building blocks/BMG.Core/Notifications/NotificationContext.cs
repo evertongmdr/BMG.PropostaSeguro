@@ -1,5 +1,6 @@
-﻿using System.Net;
+﻿using BMG.Core.Communication;
 using FluentValidation.Results;
+using System.Net;
 
 namespace BMG.Core.Notifications
 {
@@ -34,6 +35,12 @@ namespace BMG.Core.Notifications
             foreach (var error in validationResult.Errors)
                 AddNotification(error.ErrorMessage);
 
+        }
+
+        public void AddNotification(ResponseResult responseResult)
+        {
+            foreach (var error in responseResult.Errors.Mensagens)
+                AddNotification(error, (HttpStatusCode)responseResult.Status);
         }
     }
 }

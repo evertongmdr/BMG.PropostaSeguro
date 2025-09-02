@@ -4,6 +4,7 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Net;
 
 namespace BMG.WebAPI.Core.Controllers
 {
@@ -20,6 +21,8 @@ namespace BMG.WebAPI.Core.Controllers
         {
             if (OperacaoValida())
             {
+                if (result == null) return Ok();
+
                 return Ok(result);
             }
 
@@ -33,6 +36,23 @@ namespace BMG.WebAPI.Core.Controllers
             {
                 Title = "Ocorreram erros na validação",
                 Status = StatusCodes.Status400BadRequest
+            });
+        }
+
+        protected ActionResult CustomErrorResponse(string erro, HttpStatusCode statusCode = HttpStatusCode.BadRequest)
+        {
+            AdicionarErroProcessamento(erro);
+
+            var modelState = new ModelStateDictionary();
+            foreach (var notification in _notificationContext.Notifications)
+            {
+                modelState.AddModelError("Mensagens", notification.Message);
+            }
+
+            return BadRequest(new ValidationProblemDetails(modelState)
+            {
+                Title = "Ocorreram erros na validação",
+                Status = (int)statusCode
             });
         }
 
